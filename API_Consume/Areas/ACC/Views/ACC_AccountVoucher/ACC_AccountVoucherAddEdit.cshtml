@@ -1,0 +1,177 @@
+﻿@model API_Consume.Areas.ACC.Models.ACC_AccountVoucherModel;
+@{
+	ViewData["Title"] = "ACC_AccountVoucherAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+	<!--begin::Toolbar container-->
+	<div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+		<!--begin::Page title-->
+		<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+			<!--begin::Title-->
+			<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Account Voucher</h1>
+			<!--end::Title-->
+			<!--begin::Breadcrumb-->
+			<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+				<!--begin::Item-->
+				<li class="breadcrumb-item text-muted">
+					<a asp-controller="Home" asp-action="Index" class="text-muted text-hover-primary"><i class="bi bi-house"></i> Home</a>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item">
+					<span class="bullet bg-gray-400 w-5px h-2px"></span>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item fw-bolder">
+					<a asp-controller="ACC_AccountVoucher" asp-action="Index" class="text-muted text-hover-primary">Account Voucher</a>
+				</li>
+				<!--end::Item--><!--begin::Item-->
+				<li class="breadcrumb-item">
+					<span class="bullet bg-gray-400 w-5px h-2px"></span>
+				</li>
+				<!--end::Item-->
+				<!--begin::Item-->
+				<li class="breadcrumb-item fw-bolder">
+					@ViewBag.Action Account Voucher
+				</li>
+				<!--end::Item-->
+			</ul>
+			<!--end::Breadcrumb-->
+		</div>
+		<!--end::Page title-->
+	</div>
+	<!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+	<!--begin::Content container-->
+	<div id="kt_app_content_container" class="app-container container-fluid">
+		<div class="card">
+			<div class="card-body p-5 px-lg-10 py-lg-7">
+					<h1 class="mb-10">@ViewBag.Action Account Voucher</h1>
+
+					<partial name="/Views/Error/_ucShowInfo.cshtml" />
+
+					<form method="post" asp-area="ACC" asp-action="_Save" asp-controller="ACC_AccountVoucher" class="row g-3 needs-validation" novalidate>
+						@Html.HiddenFor(x => x.AccountVoucherID)
+						@Html.AntiForgeryToken()
+
+						<div class="row">
+							<div class="fv-row mb-8 col-12 col-md-4">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.AccountDocID, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<select class="form-select form-select-solid" data-control="select2" asp-for="AccountDocID" asp-items="@(new SelectList(ViewBag.AccountDocList,"AccountDocID","AccountDocName"))">
+										<option value="">Select Account Doc</option>
+									</select>
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="AccountDocID" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-4">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.VoucherNo, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<input asp-for="VoucherNo" type="text" class="form-control form-control-solid" />
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="VoucherNo" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-4">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.VoucherDate, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<input asp-for="VoucherDate" type="date" class="form-control form-control-solid" />
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="VoucherDate" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="fv-row mb-8 col-12 col-md-6">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.DebitAccountID, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<select class="form-select form-select-solid" data-control="select2" asp-for="DebitAccountID" asp-items="@(new SelectList(ViewBag.AccountList,"AccountID","AccountName"))">
+										<option value="">Select Debit Account Name</option>
+									</select>
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="VoucherDate" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-6">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.CreditAccountID, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<select class="form-select form-select-solid" data-control="select2" asp-for="CreditAccountID" asp-items="@(new SelectList(ViewBag.AccountList,"AccountID","AccountName"))">
+										<option value="">Select Credit Account Name</option>
+									</select>
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="CreditAccountID" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="fv-row mb-8 col-12 col-md-4">
+								@Html.LabelFor(x => x.ReferenceNo, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<input asp-for="ReferenceNo" type="text" class="form-control form-control-solid" />
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="ReferenceNo" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-4">
+								@Html.LabelFor(x => x.ReferenceDate, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<input asp-for="ReferenceDate" type="date" class="form-control form-control-solid" />
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="ReferenceNo" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-4">
+								<span class="text-danger">*</span>@Html.LabelFor(x => x.Amount, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<input asp-for="Amount" type="number" class="form-control form-control-solid" />
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="Amount" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="fv-row mb-8 col-12 col-md-6">
+								@Html.LabelFor(x => x.Narration, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<textarea asp-for="Narration" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="Narration" data-valmsg-replace="true"></span>
+							</div>
+
+							<div class="fv-row mb-8 col-12 col-md-6">
+								@Html.LabelFor(x => x.Remarks, htmlAttributes: new { @class = "form-label" })
+								<div class="col-12 col-md-12 fv-row">
+									<textarea asp-for="Remarks" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+								</div>
+								<span class="form-text text-danger" data-valmsg-for="Remarks" data-valmsg-replace="true"></span>
+							</div>
+						</div>
+
+						<div>
+							@if (Model.AccountVoucherID == 0)
+							{
+								<input type="submit" value="Save" class="btn btn-primary" />
+							}
+							else
+							{
+								<input type="submit" value="Update" class="btn btn-primary" />
+
+							}
+							<a asp-area="ACC" asp-action="Index" asp-controller="ACC_AccountVoucher" class="btn btn-secondary mx-2">Cancel</a>
+						</div>
+					</form>
+			</div>
+		</div>
+	</div>
+	<!--end::Content container-->
+</div>
+<!--end::Content-->

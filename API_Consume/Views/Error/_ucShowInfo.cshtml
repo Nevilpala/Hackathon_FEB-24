@@ -1,0 +1,36 @@
+﻿@if (TempData["ErrorMessage"] != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                <ul class="mb-0">
+                    @Html.Raw(TempData["ErrorMessage"])
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-successs" role="alert">
+                <ul class="mb-0">
+                    @Html.Raw(TempData["SuccessMessage"])
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+else if (TempData["InfoMessage"] != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-primary" role="alert">
+                <ul class="mb-0">
+                    @Html.Raw(TempData["InfoMessage"])
+                </ul>
+            </div>
+        </div>
+    </div>
+}

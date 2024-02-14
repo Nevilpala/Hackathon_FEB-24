@@ -1,0 +1,112 @@
+﻿@using API_Consume.CF;
+@using API_Consume.BAL;
+@model API_Consume.Areas.ACC.Models.ACC_AccountVoucherModel;
+
+<div class="row g-mb-20">
+    <div class="col-md-12" id="divBranchList">
+        <form id="filterForm" class="filter-form" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace"
+              data-ajax-update="#SearchResult" data-ajax-success="OnSuccess(this.id,data, status, xhr);"
+              data-ajax-failure="OnFailure(xhr, status, error);" asp-action="_SearchResult" asp-controller="ACC_AccountVoucher"
+              asp-area="ACC">
+            @Html.AntiForgeryToken()
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_AccountDocID)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <select class="form-control" data-control="select2" asp-for="F_AccountDocID"
+                                    asp-items="@(new SelectList(ViewBag.AccountDocList,"AccountDocID","AccountDocName"))">
+                                <option value="">Select AccountDoc</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.F_AccountDocID, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_VoucherNo)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_VoucherNo" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_VoucherNo, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_FromDate)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            <input type="date" asp-for="F_FromDate" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_FromDate, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_ToDate)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            <input type="date" asp-for="F_ToDate" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_ToDate, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_DebitAccountName)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_DebitAccountName" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_DebitAccountName, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_CreditAccountName)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_CreditAccountName" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_CreditAccountName, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_Narration)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_Narration" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_Narration, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_Remarks)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_Remarks" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_Remarks, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="">&nbsp;</label>
+                    <div>
+                        <input class="btn btn-primary btn-action-search" type="submit" value="Show" name="btnShow"
+                               id="btnShow" />
+                        <input type="reset" value="Reset" class="btn btn-light btn-action-reset" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

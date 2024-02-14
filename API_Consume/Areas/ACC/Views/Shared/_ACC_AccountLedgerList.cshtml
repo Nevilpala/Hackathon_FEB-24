@@ -1,0 +1,171 @@
+﻿@using API_Consume.CF;
+@using API_Consume.BAL;
+@using API_Consume.DAL;
+@using API_Consume.Areas.ACC.Models;
+@using static API_Consume.DAL.ACC_AccountLedgerDALBase;
+@model Tuple<ACC_AccountLedgerModel, PagedListPagerModel, List<dbo_PR_ACC_AccountLedgerByAccountID_Result>>
+
+@{
+    UserOperationRightsModel vUserOperationRightsModel = ViewBag.UserOperationRights;
+}
+
+<div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-fluid">
+        <!--begin::Card-->
+        <div class="card">
+            <!--begin::Card header-->
+            <div class="card-header border-0">
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Toolbar-->
+                    <div class="d-flex justify-content-end pt-md-3" data-kt-customer-table-toolbar="base">
+                        <!--begin::Title-->
+                        <div class="d-flex justify-content-center">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </div>
+
+                            <div class="mx-2">
+                                <h3 class="text-dark ">
+                                    <span class="text-dark">@ViewBag.SearchResultHeaderText</span>
+                                </h3>
+                            </div>
+
+                        </div>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Toolbar-->
+                </div>
+                <!--end::Card toolbar-->
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <div class="d-flex justify-content-center">
+                    @*     <div>
+                            <a asp-area="ACC" asp-action="AddEdit" asp-controller="ACC_AccountLedger" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus"></i> Add Account Voucher
+                            </a>
+                        </div> *@
+
+                        <!--begin::Download Excel-->
+                       @*  <div style="padding-left:10px;">
+                            <form id="frmExportExcel" class="" target="_blank"
+                                  asp-action="ExportExcel" asp-controller="ACC_AccountLedger" asp-area="ACC">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="TotalRecords" class="" name="TotalRecords" value="@(Model.Item3.First().TotalRecords)" />
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    Export Excel
+                                </button>
+                            </form>
+                        </div> *@
+                        <!--end::Download Excel-->
+                    </div>
+                </div>
+                <!--begin::Card title-->
+            </div>
+            <hr />
+            <!--end::Card header-->
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <partial name="/Views/Error/_ucShowInfo.cshtml" />
+                    </div>
+                </div>
+                <div class="col-md-12" id="divCityList">
+
+
+                    <form id="hdFormUpdateCityList" class="" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace" data-ajax-update="#SearchResult"
+                          data-ajax-success="OnSuccess(this.id,data, status, xhr);" data-ajax-failure="OnFailure(xhr, status, error);"
+                          asp-action="_SearchResult" asp-controller="ACC_AccountLedger" asp-area="ACC">
+                        @Html.AntiForgeryToken()
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-md-7">
+                                Page size: @Html.DropDownList("F_PageSize", Model.Item2.PageSizeList, new { @class = "form-select js-grid-hd-input", style = "display: inline; width: 65px; height: 30px; padding: 0px 4px; padding-top: 2px; padding-bottom: 6px;" })
+                                <div class="d-inline-bMEMk">@Html.Raw(Model.Item2.PageInfo)</div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="GoToPageNo" class="js-grid-hd-input" name="F_PageNo" value="@(Model.Item1.F_PageNo)" />
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="tblList">
+                            <thead class="table-secondary">
+                                <tr class="fw-bold"> 
+                                    <th width="8%">V. No.</th>
+                                    <th width="10%">V. Date</th>
+                                    <th width="8%">Ref. No.</th>
+                                    <th width="10%">Ref. Date</th>
+                                    <th>Opposite Account Narration</th>
+                                    <th width="8%" class="text-end">DR</th>
+                                    <th width ="8%" class="text-end">CR</th>
+                                    <th width="15%" class="text-end">Balance</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                    decimal crCount = 0;
+                                    decimal drCount = 0;
+                                    decimal balance = 0;
+                                }
+                                @if (Model.Item3.Count == 0)
+                                {
+                                    <tr class="text-center">
+                                        <td colspan="8">No records found...!</td>
+                                    </tr>
+                                }
+                                @foreach (var item in Model.Item3)
+                                {
+                                    i++;
+                                    crCount += Convert.ToDecimal(item.CreditAmount);
+                                    drCount += Convert.ToDecimal(item.DebitAmount);
+                                    balance += Convert.ToDecimal(item.CreditAmount) - Convert.ToDecimal(item.DebitAmount);
+                                    <tr>
+                                        <td>@item.VoucherNo</td>
+                                        <td>@(item.VoucherDate!=null?Convert.ToDateTime(item.VoucherDate).ToString("dd-MM-yyyy"):"")</td>
+                                        <td>@item.ReferenceNo</td>
+                                        <td>@(item.ReferenceDate!=null?Convert.ToDateTime(item.ReferenceDate).ToString("dd-MM-yyyy"):"")</td>
+                                        <td>@item.Narration</td>
+                                        <td class="text-end bg-danger text-danger bg-opacity-25">@string.Format("{0:0.00}", item.DebitAmount)</td>
+                                        <td class="text-end bg-success text-success bg-opacity-25">@string.Format("{0:0.00}", item.CreditAmount)</td>
+                                        <td class="text-end">
+                                            @string.Format("{0:0.00}", balance) 
+                                            @if(!string.IsNullOrEmpty(item.BalanceOn)){
+                                                <span> - @item.BalanceOn</span>
+                                            }
+                                        </td>  
+                                    </tr>
+                                }
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-end fw-bold pe-2">Total : </td>
+                                    <td class="text-end bg-danger text-danger bg-opacity-25">@string.Format("{0:0.00}", drCount)</td>
+                                    <td class="text-end bg-success text-success bg-opacity-25">@string.Format("{0:0.00}", crCount)</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="text-end pull-end">
+                        <partial name="/Views/Shared/_GeneratePager.cshtml" model="@Model.Item2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".js-grid-hd-input").on("change", function () {
+        $("#hdFormUpdateCityList").submit();
+    });
+</script>

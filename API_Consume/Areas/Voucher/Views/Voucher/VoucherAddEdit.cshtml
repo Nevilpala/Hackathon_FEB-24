@@ -1,0 +1,141 @@
+﻿@model API_Consume.Areas.Voucher.Models.VoucherModel;
+@{
+    ViewData["Title"] = "VoucherAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <!--begin::Title-->
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Voucher</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a asp-controller="Home" asp-action="Index" class="text-muted text-hover-primary"><i class="bi bi-house"></i> Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item fw-bolder">
+                    <a asp-controller="Voucher" asp-action="Index" class="text-muted text-hover-primary">Voucher</a>
+                </li>
+                <!--end::Item--><!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item fw-bolder">
+                    @ViewBag.Action Voucher
+                </li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-fluid">
+        <div class="card">
+            <div class="card-body p-5 px-lg-10 py-lg-7">
+                <h1 class="mb-10">@ViewBag.Action Voucher</h1>
+
+                <partial name="/Views/Error/_ucShowInfo.cshtml" />
+
+                <form method="post" asp-area="Voucher" asp-action="_Save" asp-controller="Voucher" class="row g-3 needs-validation" novalidate>
+                    @Html.HiddenFor(x => x.VoucherID)
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                         
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            <span class="text-danger">*</span>@Html.LabelFor(x => x.VoucherName, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="VoucherName" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="VoucherName" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            <span class="text-danger">*</span>@Html.LabelFor(x => x.VoucherCode, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="VoucherCode" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="VoucherCode" data-valmsg-replace="true"></span>
+                        </div>
+
+                    </div>
+
+                     
+
+                    <div class="row">
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.PrintLine1, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="PrintLine1" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintLine1" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.PrintLine2, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="PrintLine2" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintLine2" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.PrintLine3, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="PrintLine3" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintLine3" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.PrintLine4, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="PrintLine4" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintLine4" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-12">
+                            @Html.LabelFor(x => x.Remarks, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="Remarks" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="Remarks" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if (Model.VoucherID == 0)
+                        {
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Update" class="btn btn-primary" />
+
+                        }
+                        <a asp-area="Voucher" asp-action="Index" asp-controller="Voucher" class="btn btn-secondary mx-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end::Content container-->
+</div>
+<!--end::Content-->
