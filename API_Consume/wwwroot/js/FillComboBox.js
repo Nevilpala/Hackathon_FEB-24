@@ -9,7 +9,8 @@ function Fn_FillStateDropdownByCountryID(CountryID, comboboxSelector, DataValueF
 
     if (CountryID !== "") {
 
-        Fn_CommonAjax_FillCombobox(url, comboboxSelector, DataValueField, DataTextField);
+        Fn_Common
+        _FillCombobox(url, comboboxSelector, DataValueField, DataTextField);
 
         //Fix Common Code -----------------------------
         //$(comboboxSelector).empty();

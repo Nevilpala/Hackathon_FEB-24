@@ -51,6 +51,7 @@ $(document).on("click", ".js-stkModal-btn", function () {
         success: function (result, status, xhr) {
             funCreateBlankModal(modalId, modalSize, xhr.responseText);
             OnSuccess(formId, xhr.responseText);
+
         },
         error: function (xhr, status, error) {
             OnFailure(xhr, status, error);

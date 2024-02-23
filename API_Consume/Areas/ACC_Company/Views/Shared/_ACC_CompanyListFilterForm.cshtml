@@ -1,0 +1,41 @@
+﻿@using API_Consume.CF;
+@using API_Consume.BAL; 
+@model API_Consume.Areas.ACC_Company.Models.ACC_CompanyModel;
+
+<div class="row g-mb-20">
+    <div class="col-md-12" id="divBranchList">
+        <form id="filterForm" class="filter-form" data-ajax="true" data-ajax-method="post" data-ajax-mode="replace"
+              data-ajax-update="#SearchResult" data-ajax-success="OnSuccess(this.id,data, status, xhr);"
+              data-ajax-failure="OnFailure(xhr, status, error);" asp-action="_SearchResult" asp-controller="ACC_Company"
+              asp-area="ACC_Company">
+            @Html.AntiForgeryToken()
+
+
+            <div class="row">
+                 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.F_CompanyName)
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <input type="text" asp-for="F_CompanyName" class="form-control" />
+                            @Html.ValidationMessageFor(m => m.F_CompanyName, "", new { @class = "form-text text-danger" })
+                        </div>
+                    </div>
+                </div>
+                 
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="">&nbsp;</label>
+                    <div>
+                        <input class="btn btn-primary btn-action-search" type="submit" value="Show" name="btnShow"
+                               id="btnShow" />
+                        <input type="reset" value="Reset" class="btn btn-light btn-action-reset" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

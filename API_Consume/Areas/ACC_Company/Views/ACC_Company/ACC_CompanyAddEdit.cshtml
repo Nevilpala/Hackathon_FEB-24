@@ -1,0 +1,388 @@
+﻿@model API_Consume.Areas.ACC_Company.Models.ACC_CompanyModel;
+@{
+    ViewData["Title"] = "ACC_CompanyAddEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <!--begin::Title-->
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Account Voucher</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a asp-controller="Home" asp-action="Index" class="text-muted text-hover-primary"><i class="bi bi-house"></i> Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item fw-bolder">
+                    <a asp-controller="ACC_Company" asp-action="Index" class="text-muted text-hover-primary">Company</a>
+                </li>
+                <!--end::Item--><!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item fw-bolder">
+                    @ViewBag.Action Account Voucher
+                </li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
+<!--begin::Content-->
+<div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-fluid">
+        <div class="card">
+            <div class="card-body p-5 px-lg-10 py-lg-7">
+                <h1 class="mb-10">@ViewBag.Action Company</h1>
+
+                <partial name="/Views/Error/_ucShowInfo.cshtml" />
+
+                <form method="post" asp-area="ACC_Company" asp-action="_Save" asp-controller="ACC_Company" class="row g-3 needs-validation" novalidate>
+                    @Html.HiddenFor(x => x.CompanyID)
+                    @Html.AntiForgeryToken()
+
+                    <h4 class="text-danger">BASIC INFORMATION</h4>
+                    <hr />
+                    <div class="row">
+                        <div class="fv-row mb-8 col-12 col-md-8">
+                            <span class="text-danger">*</span>@Html.LabelFor(x => x.CompanyName, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="CompanyName" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="CompanyName" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-4">
+                            @Html.LabelFor(x => x.CompanyCode, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="CompanyCode" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="CompanyCode" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.Address, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <textarea asp-for="Address" class="form-control form-control-solid" rows="2" cols="5"></textarea>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md">
+                            @Html.LabelFor(x => x.StateID, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <select class="form-select form-select-solid" data-control="select2" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateName","StateName"))">
+                                    <option value="">Select State Name</option>
+                                </select>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="StateID" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md">
+                            @Html.LabelFor(x => x.CityID, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <select class="form-select form-select-solid" data-control="select2" asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList,"CityID","CityName"))">
+                                    <option value="">Select City Name</option>
+                                </select>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="CityID" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md">
+                            @Html.LabelFor(x => x.Pincode, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="Pincode" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="Pincode" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <h4 class="text-danger">CONTACT INFORMATION</h4>
+                    <hr />
+                    <div class="row">
+                        <div class="fv-row mb-8 col-12 col-md">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.PhoneNo, htmlAttributes: new { @class = "form-label" })
+                                <div class="input-group flex-nowrap ">
+                                    <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                    <input type="text" asp-for="PhoneNo" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.PhoneNo, "", new { @class = "form-text text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.MobileNo, htmlAttributes: new { @class = "form-label" })
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                    <input type="text" asp-for="MobileNo" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "form-text text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.FaxNo, htmlAttributes: new { @class = "form-label" })
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="fa-solid fa-fax"></i></span>
+                                    <input type="text" asp-for="FaxNo" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.FaxNo, "", new { @class = "form-text text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Email, htmlAttributes: new { @class = "form-label" })
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                    <input type="text" asp-for="Email" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "form-text text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Website, htmlAttributes: new { @class = "form-label" })
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text"><i class="fa-solid fa-globe"></i></span>
+                                    <input type="text" asp-for="Website" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.Website, "", new { @class = "form-text text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.ResponsiblePersonName, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="ResponsiblePersonName" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="ResponsiblePersonName" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.ResponsiblePersonDesignation, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="ResponsiblePersonDesignation" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="ResponsiblePersonDesignation" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-8 col-12 col-md-6">
+                            @Html.LabelFor(x => x.ResponsiblePersonPhoneNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="ResponsiblePersonPhoneNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="ResponsiblePersonPhoneNo" data-valmsg-replace="true"></span>
+                        </div>
+
+                    </div>
+
+                    <h4 class="text-danger">TAX INFORMATION</h4>
+                    <hr />
+                    <div class="row">
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.STNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="STNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="STNo" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.STDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="STDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="STDate" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.PANNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="PANNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PANNo" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.PANDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="PANDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PANDate" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.TANNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TANNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TANNo" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.TANDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TANDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TANDate" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.VATNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="VATNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="VATNo" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.VATDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="VATDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="VATDate" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.ImportExportCode, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="ImportExportCode" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="ImportExportCode" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.ImportExportDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="ImportExportDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="ImportExportDate" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.CSTNo, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="CSTNo" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="CSTNo" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-3">
+                            @Html.LabelFor(x => x.CSTDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="CSTDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="CSTDate" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <h4 class="text-danger">OTHER INFORMATION</h4>
+
+                    <hr />
+                    <div class="row">
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.OpeningBalanceJournalID, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <select class="form-select form-select-solid" data-control="select2" asp-for="OpeningBalanceJournalID" asp-items="@(new SelectList(ViewBag.AccountList,"AccountID","AccountName"))">
+                                    <option value="">Select Opening Balance Journal Name</option>
+                                </select>
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="OpeningBalanceJournalID" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.PrintHeader1, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="PrintHeader1" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintHeader1" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.PrintHeader2, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="PrintHeader2" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="PrintHeader2" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.TermsCondition1, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TermsCondition1" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TermsCondition1" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.TermsCondition2, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TermsCondition2" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TermsCondition2" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.TermsCondition3, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TermsCondition3" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TermsCondition3" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.TermsCondition4, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TermsCondition4" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TermsCondition4" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.TermsCondition5, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="TermsCondition5" type="text" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="TermsCondition5" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.OpeningDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="OpeningDate" type="date" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="OpeningDate" data-valmsg-replace="true"></span>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="fv-row mb-6 col-12 col-md-4">
+                            @Html.LabelFor(x => x.LogoPath, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-12 col-md-12 fv-row">
+                                <input asp-for="LogoPath" value="" type="hidden" class="form-control form-control-solid" />
+                                <input type="file" class="form-control form-control-solid" />
+                            </div>
+                            <span class="form-text text-danger" data-valmsg-for="LogoPath" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div>
+                        @if (Model.CompanyID == 0)
+                        {
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Update" class="btn btn-primary" />
+
+                        }
+                        <a asp-area="ACC_Company" asp-action="Index" asp-controller="ACC_Company" class="btn btn-secondary mx-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end::Content container-->
+</div>
+<!--end::Content-->

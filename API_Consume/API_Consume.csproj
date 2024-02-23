@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\ACC\Data\" />
+    <Folder Include="Areas\ACC_Company\Data\" />
     <Folder Include="Areas\Voucher\Data\" />
   </ItemGroup>
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "N:\\Nevil\\Hackathon\\API_Consume\\API_Consume\\API_Consume.csproj": {}
+    "N:\\Nevil\\Hackathon_Feb-24\\Hackathon_feb-24\\API_Consume\\API_Consume.csproj": {}
   },
   "projects": {
-    "N:\\Nevil\\Hackathon\\API_Consume\\API_Consume\\API_Consume.csproj": {
+    "N:\\Nevil\\Hackathon_Feb-24\\Hackathon_feb-24\\API_Consume\\API_Consume.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "N:\\Nevil\\Hackathon\\API_Consume\\API_Consume\\API_Consume.csproj",
+        "projectUniqueName": "N:\\Nevil\\Hackathon_Feb-24\\Hackathon_feb-24\\API_Consume\\API_Consume.csproj",
         "projectName": "API_Consume",
-        "projectPath": "N:\\Nevil\\Hackathon\\API_Consume\\API_Consume\\API_Consume.csproj",
+        "projectPath": "N:\\Nevil\\Hackathon_Feb-24\\Hackathon_feb-24\\API_Consume\\API_Consume.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "N:\\Nevil\\Hackathon\\API_Consume\\API_Consume\\obj\\",
+        "outputPath": "N:\\Nevil\\Hackathon_Feb-24\\Hackathon_feb-24\\API_Consume\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
